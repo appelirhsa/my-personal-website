@@ -1,0 +1,1662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SecurePulse | Health & Safety Solution</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+  <style>
+    :root {
+      --primary: #b0c3e6;
+      --primary-dark: #f5d9f8;
+      --accent: #2d7de6;
+      --gradient-start: #f3cff3;
+      --gradient-mid: #9e8b96;
+      --gradient-end: #d5dee6;
+      --bg: #f7fafc;
+      --card-bg: rgba(255, 255, 255, 0.92);
+      --text: #23272f;
+      --text-light: #5f6775;
+      --success: #22c55e;
+      --error: #ef4444;
+      --shadow: 0 4px 24px rgba(39, 110, 241, 0.1);
+      --radius: 20px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, var(--gradient-start), var(--gradient-mid), var(--gradient-end));
+      background-size: 400% 400%;
+      color: var(--text);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+      animation: gradientBG 15s ease infinite;
+      overflow-x: hidden;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4 {
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      margin-bottom: 1.5rem;
+    }
+
+    h2 {
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      margin-bottom: 1.8rem;
+      color: var(--primary-dark);
+    }
+
+    h3 {
+      font-size: clamp(1.5rem, 3vw, 1.8rem);
+      margin-bottom: 1.2rem;
+    }
+
+    p {
+      margin-bottom: 1.5rem;
+      color: var(--text-light);
+      font-size: clamp(1rem, 1.1vw, 1.1rem);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-block;
+      padding: 0.9rem clamp(1.5rem, 3vw, 2.2rem);
+      border-radius: 2rem;
+      border: none;
+      font-weight: 600;
+      font-size: clamp(0.95rem, 1.05vw, 1.05rem);
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .btn.primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn.primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn.secondary {
+      background: transparent;
+      border: 2px solid var(--primary);
+      color: var(--primary);
+    }
+
+    .btn.secondary:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    /* Navigation */
+    .navbar {
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow);
+      padding: 1rem clamp(1rem, 2vw, 2rem);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      text-decoration: none;
+      z-index: 101;
+    }
+
+    .logo-icon {
+      width: clamp(36px, 40px, 40px);
+      height: clamp(36px, 40px, 40px);
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      font-size: clamp(1rem, 1.2vw, 1.2rem);
+    }
+
+    .logo span {
+      font-weight: 700;
+      font-size: clamp(1.2rem, 1.4vw, 1.4rem);
+      color: var(--primary);
+    }
+
+    nav {
+      display: flex;
+      gap: clamp(1rem, 2.2vw, 2.2rem);
+      align-items: center;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 500;
+      padding: 0.4em 0.8em;
+      border-radius: var(--radius);
+      transition: var(--transition);
+      font-size: clamp(0.9rem, 1vw, 1rem);
+    }
+
+    nav a.active, nav a:hover {
+      color: var(--primary);
+      background: rgba(39, 110, 241, 0.08);
+    }
+
+    .login-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.6rem clamp(1rem, 1.5vw, 1.5rem);
+      border-radius: 2rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      font-size: clamp(0.9rem, 1vw, 1rem);
+    }
+
+    .login-btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--text);
+      z-index: 101;
+    }
+
+    /* Page Content */
+    .page {
+      display: none;
+      min-height: 70vh;
+      padding: clamp(2rem, 4vw, 4rem) 0;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Hero Section */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: clamp(2rem, 4vw, 4rem);
+      margin: clamp(1rem, 2vw, 2rem) 0 clamp(2rem, 4vw, 4rem);
+    }
+
+    @media (min-width: 768px) {
+      .hero {
+        flex-direction: row;
+      }
+    }
+
+    .hero-text {
+      flex: 1;
+      text-align: center;
+    }
+
+    @media (min-width: 768px) {
+      .hero-text {
+        text-align: left;
+      padding-right: 1rem;
+      max-width: 50%;
+      align-self: center;
+      flex: none;
+      width: 50%;
+      padding-right: 2rem;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 100%;
+      flex: 1;
+      text-align: left;
+    }
+    }
+
+    .hero-img {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      position: relative;
+      width: 100%;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    @media (min-width: 768px) {
+      .hero-img {
+        flex: 1;
+        max-width: 50%;
+      }
+    }
+
+    .hero-bg {
+      position: absolute;
+      width: 80%;
+      max-width: 300px;
+      aspect-ratio: 1/1;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.2;
+      z-index: -1;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .hero-img img {
+      width: 100%;
+      max-width: 320px;
+      border-radius: 30px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+      transition: var(--transition);
+    }
+
+    .hero-img img:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 2rem;
+      width: 100%;
+      max-width: 300px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    @media (min-width: 480px) {
+      .hero-buttons {
+        flex-direction: row;
+        max-width: none;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .hero-buttons {
+        margin-left: 0;
+        margin-right: 0;
+        justify-content: flex-start;
+      }
+    }
+
+    /* Features Section */
+    .features {
+      margin: clamp(2rem, 4vw, 4rem) 0;
+    }
+
+    .features h2 {
+      text-align: center;
+      margin-bottom: clamp(2rem, 3.5vw, 3.5rem);
+      color: white;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: clamp(1.5rem, 2.5vw, 2.5rem);
+    }
+
+    .feature-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: clamp(1.5rem, 2.5vw, 2.5rem) clamp(1.5rem, 2vw, 2rem);
+      text-align: center;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      backdrop-filter: blur(10px);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .feature-icon {
+      width: clamp(60px, 80px, 80px);
+      height: clamp(60px, 80px, 80px);
+      background: rgba(39, 110, 241, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      font-size: clamp(1.5rem, 2vw, 2rem);
+      color: var(--primary);
+    }
+
+    /* Dashboard Section */
+    .dashboard {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border-radius: var(--radius);
+      padding: clamp(1.5rem, 3vw, 3rem);
+      margin: clamp(2rem, 4vw, 4rem) 0;
+      box-shadow: var(--shadow);
+      display: none;
+    }
+
+    .dashboard.active {
+      display: block;
+    }
+
+    .dashboard-header {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      margin-bottom: clamp(1.5rem, 2.5vw, 2.5rem);
+    }
+
+    @media (min-width: 768px) {
+      .dashboard-header {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .user-avatar {
+      width: clamp(50px, 60px, 60px);
+      height: clamp(50px, 60px, 60px);
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      font-size: clamp(1.2rem, 1.5vw, 1.5rem);
+    }
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: clamp(1.5rem, 2vw, 2rem);
+    }
+
+    .metric-card {
+      background: white;
+      border-radius: var(--radius);
+      padding: clamp(1.5rem, 2vw, 2rem);
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      border-left: 4px solid var(--primary);
+    }
+
+    .metric-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .metric-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: clamp(1rem, 1.5vw, 1.5rem);
+    }
+
+    .metric-icon {
+      width: clamp(40px, 50px, 50px);
+      height: clamp(40px, 50px, 50px);
+      border-radius: 12px;
+      background: rgba(39, 110, 241, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: clamp(1.2rem, 1.5vw, 1.5rem);
+      color: var(--primary);
+    }
+
+    .metric-value {
+      font-size: clamp(1.8rem, 2.5vw, 2.5rem);
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .metric-label {
+      color: var(--text-light);
+      font-size: clamp(0.95rem, 1.1vw, 1.1rem);
+    }
+
+    .metric-trend {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+      color: var(--success);
+      font-weight: 500;
+      font-size: clamp(0.9rem, 1vw, 1rem);
+    }
+
+    .trend-down {
+      color: var(--error);
+    }
+
+    /* Product Page */
+    .product-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: clamp(1.5rem, 2vw, 2rem);
+      margin-bottom: clamp(2rem, 3vw, 3rem);
+    }
+
+    .gallery-item {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .gallery-item-content {
+      padding: clamp(1rem, 1.5vw, 1.5rem);
+    }
+
+    /* Pricing Section */
+    .pricing {
+      margin: clamp(2rem, 4vw, 4rem) 0;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: clamp(1.5rem, 2.5vw, 2.5rem);
+      margin-top: clamp(2rem, 3vw, 3rem);
+    }
+
+    .pricing-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: clamp(1.5rem, 2.5vw, 2.5rem) clamp(1.5rem, 2vw, 2rem);
+      text-align: center;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+    }
+
+    .pricing-card.popular {
+      border: 2px solid var(--primary);
+      transform: scale(1.05);
+    }
+
+    .popular-badge {
+      position: absolute;
+      top: 20px;
+      right: -30px;
+      background: var(--primary);
+      color: white;
+      padding: 0.5rem 3rem;
+      transform: rotate(45deg);
+      font-weight: 600;
+      font-size: clamp(0.8rem, 0.9vw, 0.9rem);
+    }
+
+    .pricing-card h3 {
+      font-size: clamp(1.5rem, 1.8vw, 1.8rem);
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .price {
+      font-size: clamp(2rem, 3vw, 3rem);
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: clamp(1rem, 1.5vw, 1.5rem);
+    }
+
+    .price span {
+      font-size: clamp(1rem, 1.2vw, 1.2rem);
+      color: var(--text-light);
+      font-weight: normal;
+    }
+
+    .features-list {
+      text-align: left;
+      margin-bottom: clamp(1.5rem, 2vw, 2rem);
+      padding: 0 1rem;
+    }
+
+    .features-list li {
+      padding: 0.5rem 0;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      font-size: clamp(0.9rem, 1vw, 1rem);
+    }
+
+    .features-list li i {
+      color: var(--success);
+      min-width: 20px;
+    }
+
+    /* Contact Page */
+    .contact-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: clamp(1.5rem, 3vw, 3rem);
+      margin-top: clamp(1.5rem, 2vw, 2rem);
+    }
+
+    @media (min-width: 768px) {
+      .contact-container {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      }
+    }
+
+    .contact-info {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: clamp(1.5rem, 2vw, 2rem);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .contact-info h3 {
+      margin-bottom: 1.5rem;
+      color: var(--primary);
+      padding-bottom: 1rem;
+      border-bottom: 2px solid rgba(39, 110, 241, 0.1);
+    }
+
+    .contact-method {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: clamp(1rem, 1.5vw, 1.5rem);
+      padding: 0.8rem;
+      border-radius: 12px;
+      transition: var(--transition);
+    }
+
+    .contact-method:hover {
+      background: rgba(39, 110, 241, 0.05);
+    }
+
+    .contact-icon {
+      width: clamp(40px, 50px, 50px);
+      height: clamp(40px, 50px, 50px);
+      border-radius: 50%;
+      background: rgba(39, 110, 241, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: clamp(1rem, 1.2vw, 1.2rem);
+      color: var(--primary);
+      flex-shrink: 0;
+    }
+
+    .contact-form {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: clamp(1.5rem, 2vw, 2rem);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .form-group {
+      margin-bottom: clamp(1rem, 1.5vw, 1.5rem);
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: var(--text);
+      font-size: clamp(0.95rem, 1vw, 1rem);
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: clamp(0.8rem, 0.9vw, 0.9rem) clamp(1rem, 1.2vw, 1.2rem);
+      border-radius: 12px;
+      border: 1px solid #d1d5db;
+      font-size: clamp(0.95rem, 1vw, 1rem);
+      transition: var(--transition);
+    }
+
+    .form-group textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(39, 110, 241, 0.2);
+    }
+
+    /* Help Center */
+    .help-center {
+      margin: clamp(2rem, 4vw, 4rem) 0;
+    }
+
+    .faq-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      margin-bottom: clamp(1rem, 1.5vw, 1.5rem);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+    }
+
+    .faq-question {
+      padding: clamp(1rem, 1.5vw, 1.5rem) clamp(1.5rem, 2vw, 2rem);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--primary);
+      font-size: clamp(1rem, 1.1vw, 1.1rem);
+    }
+
+    .faq-answer {
+      padding: 0 clamp(1.5rem, 2vw, 2rem) clamp(1rem, 1.5vw, 1.5rem);
+      display: none;
+      color: var(--text-light);
+      font-size: clamp(0.95rem, 1vw, 1rem);
+    }
+
+    .faq-item.active .faq-answer {
+      display: block;
+    }
+
+    .faq-toggle {
+      font-size: clamp(1rem, 1.2vw, 1.2rem);
+      transition: var(--transition);
+    }
+
+    .faq-item.active .faq-toggle {
+      transform: rotate(180deg);
+    }
+
+    /* Footer */
+    footer {
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(10px);
+      padding: clamp(2rem, 3vw, 3rem) 0 clamp(1.5rem, 2vw, 2rem);
+      border-top: 1px solid rgba(0, 0, 0, 0.05);
+      margin-top: clamp(2rem, 4vw, 4rem);
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: clamp(1.5rem, 3vw, 3rem);
+      margin-bottom: clamp(1.5rem, 3vw, 3rem);
+    }
+
+    .footer-column h3 {
+      font-size: clamp(1.1rem, 1.2vw, 1.2rem);
+      margin-bottom: clamp(1rem, 1.5vw, 1.5rem);
+      color: var(--text);
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: clamp(0.5rem, 0.8vw, 0.8rem);
+    }
+
+    .footer-links a {
+      text-decoration: none;
+      color: var(--text-light);
+      transition: var(--transition);
+      font-size: clamp(0.9rem, 1vw, 1rem);
+    }
+
+    .footer-links a:hover {
+      color: var(--primary);
+    }
+
+    .copyright {
+      text-align: center;
+      padding-top: clamp(1rem, 2vw, 2rem);
+      border-top: 1px solid rgba(0, 0, 0, 0.05);
+      color: var(--text-light);
+      font-size: clamp(0.9rem, 1vw, 1rem);
+    }
+
+    /* Responsive Navigation */
+    @media (max-width: 900px) {
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        height: 100vh;
+        width: 280px;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        flex-direction: column;
+        padding: 80px 20px 20px;
+        box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+        transition: right 0.3s ease;
+        z-index: 100;
+        gap: 1rem;
+        justify-content: flex-start;
+        align-items: stretch;
+      }
+
+      nav.active {
+        right: 0;
+      }
+
+      nav a {
+        padding: 0.8rem 1rem;
+        border-radius: 8px;
+        margin-bottom: 0.5rem;
+      }
+
+      .login-btn {
+        width: 100%;
+        margin-top: 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-text {
+        text-align: center;
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+      }
+    }
+
+    /* Login Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(5px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background: white;
+      border-radius: var(--radius);
+      padding: clamp(1.5rem, 3vw, 3rem);
+      max-width: 450px;
+      width: 90%;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+      position: relative;
+      animation: modalFade 0.4s ease;
+    }
+
+    @keyframes modalFade {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--text-light);
+      transition: var(--transition);
+    }
+
+    .close-modal:hover {
+      color: var(--primary);
+    }
+
+    .modal h2 {
+      text-align: center;
+      margin-bottom: clamp(1.5rem, 2vw, 2rem);
+    }
+
+    .form-group {
+      margin-bottom: clamp(1rem, 1.5vw, 1.5rem);
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: clamp(0.8rem, 0.9vw, 0.9rem) clamp(1rem, 1.2vw, 1.2rem);
+      border-radius: 12px;
+      border: 1px solid #d1d5db;
+      font-size: clamp(0.95rem, 1vw, 1rem);
+      transition: var(--transition);
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(39, 110, 241, 0.2);
+    }
+
+    .error-message {
+      color: var(--error);
+      margin-top: 0.5rem;
+      font-size: clamp(0.85rem, 0.9vw, 0.9rem);
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <header class="navbar">
+    <a href="#home" class="logo" data-page="home">
+      <div class="logo-icon">SP</div>
+      <span>SecurePulse</span>
+    </a>
+    
+    <button class="mobile-menu-btn" id="mobileMenuBtn">
+      <i class="fas fa-bars"></i>
+    </button>
+    
+    <nav id="mainNav">
+      <a href="#home" data-page="home" class="active">Home</a>
+      <a href="#product" data-page="product">Product</a>
+      <a href="#dashboard" data-page="dashboard">Dashboard</a>
+      <a href="#how" data-page="how">How It Works</a>
+      <a href="#pricing" data-page="pricing">Plans & Pricing</a>
+      <a href="#about" data-page="about">About</a>
+      <a href="#contact" data-page="contact">Contact</a>
+      <a href="#help" data-page="help">Help Center</a>
+      <button class="login-btn" id="loginBtn">Login</button>
+    </nav>
+  </header>
+
+  <!-- Page Content -->
+  <div class="container">
+    <!-- Home Page -->
+    <section id="home" class="page active">
+      <div class="hero">
+        <div class="hero-text">
+          <h1>Protecting You in Every Moment</h1>
+          <p>SecurePulse is an innovative wearable designed to monitor your health and ensure your safety with real-time alerts. Experience peace of mind with advanced features and seamless app integration.</p>
+          <div class="hero-buttons">
+            <a href="#product" class="btn primary" data-page="product">Explore Product</a>
+            <a href="#pricing" class="btn secondary" data-page="pricing">View Pricing</a>
+          </div>
+        </div>
+        <div class="hero-img">
+          <div class="hero-bg"></div>
+          <img src="https://images.unsplash.com/photo-1581595219318-4d87b09f6c7f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="SecurePulse Bracelet">
+        </div>
+      </div>
+
+      <div class="features">
+        <h2>Key Features</h2>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-heartbeat"></i>
+            </div>
+            <h3>Health Monitoring</h3>
+            <p>Track vital signs including heart rate, temperature, and activity levels in real-time.</p>
+          </div>
+          
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-bell"></i>
+            </div>
+            <h3>Emergency SOS</h3>
+            <p>Instantly alert emergency contacts with your location at the press of a button.</p>
+          </div>
+          
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-location-dot"></i>
+            </div>
+            <h3>Real-Time Tracking</h3>
+            <p>Accurate GPS location tracking with geofencing capabilities for safety zones.</p>
+          </div>
+          
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-shield-alt"></i>
+            </div>
+            <h3>Tamper Alert</h3>
+            <p>Immediate notification if the bracelet is forcibly removed or damaged.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Product Page -->
+    <section id="product" class="page">
+      <h2>SecurePulse Product Line</h2>
+      <p>Discover our range of health and safety wearables designed for all lifestyles.</p>
+      
+      <div class="product-gallery">
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="SecurePulse Classic">
+          <div class="gallery-item-content">
+            <h3>SecurePulse Classic</h3>
+            <p>Our flagship health monitoring bracelet with all essential safety features.</p>
+            <ul>
+              <li>Heart rate monitoring</li>
+              <li>Emergency SOS</li>
+              <li>30-day battery</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1546435770-a3e426bf472b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="SecurePulse Pro">
+          <div class="gallery-item-content">
+            <h3>SecurePulse Pro</h3>
+            <p>Advanced features for health enthusiasts and safety-conscious users.</p>
+            <ul>
+              <li>All Classic features</li>
+              <li>Sleep tracking</li>
+              <li>Fall detection</li>
+              <li>Voice assistant</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1579586337278-3befd40fd17a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="SecurePulse Kids">
+          <div class="gallery-item-content">
+            <h3>SecurePulse Kids</h3>
+            <p>Designed specifically for children with parent-friendly features.</p>
+            <ul>
+              <li>Location tracking</li>
+              <li>School zone alerts</li>
+              <li>Tamper detection</li>
+              <li>Fun, durable design</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Dashboard Page -->
+    <section id="dashboard" class="page">
+      <div class="dashboard" id="dashboardContent">
+        <div class="dashboard-header">
+          <div class="user-info">
+            <div class="user-avatar">JD</div>
+            <div>
+              <h3>Welcome, John Doe!</h3>
+              <p>Last sync: Today at 10:30 AM</p>
+            </div>
+          </div>
+          <button class="btn secondary" id="logoutBtn">Logout</button>
+        </div>
+        
+        <div class="dashboard-grid">
+          <div class="metric-card">
+            <div class="metric-header">
+              <h3>Heart Rate</h3>
+              <div class="metric-icon">
+                <i class="fas fa-heart"></i>
+              </div>
+            </div>
+            <div class="metric-value">72 <span style="font-size: 1.5rem;">bpm</span></div>
+            <div class="metric-label">Resting heart rate</div>
+            <div class="metric-trend">
+              <i class="fas fa-arrow-down"></i>
+              <span>2% lower than yesterday</span>
+            </div>
+          </div>
+          
+          <div class="metric-card">
+            <div class="metric-header">
+              <h3>Body Temperature</h3>
+              <div class="metric-icon">
+                <i class="fas fa-thermometer-half"></i>
+              </div>
+            </div>
+            <div class="metric-value">98.6 <span style="font-size: 1.5rem;">°F</span></div>
+            <div class="metric-label">Current temperature</div>
+            <div class="metric-trend">
+              <i class="fas fa-arrow-right"></i>
+              <span>Normal range</span>
+            </div>
+          </div>
+          
+          <div class="metric-card">
+            <div class="metric-header">
+              <h3>Sleep Quality</h3>
+              <div class="metric-icon">
+                <i class="fas fa-bed"></i>
+              </div>
+            </div>
+            <div class="metric-value">7.2 <span style="font-size: 1.5rem;">hrs</span></div>
+            <div class="metric-label">Last night's sleep</div>
+            <div class="metric-trend">
+              <i class="fas fa-arrow-up"></i>
+              <span>15% better than average</span>
+            </div>
+          </div>
+          
+          <div class="metric-card">
+            <div class="metric-header">
+              <h3>Activity Level</h3>
+              <div class="metric-icon">
+                <i class="fas fa-walking"></i>
+              </div>
+            </div>
+            <div class="metric-value">8,542 <span style="font-size: 1.5rem;">steps</span></div>
+            <div class="metric-label">Today's activity</div>
+            <div class="metric-trend">
+              <i class="fas fa-arrow-up"></i>
+              <span>You've met your daily goal!</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works Page -->
+    <section id="how" class="page">
+      <h2>How SecurePulse Works</h2>
+      <p>Simple setup and intuitive operation for maximum safety and health monitoring.</p>
+      
+      <div class="features-grid" style="margin-top: 3rem;">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-mobile-alt"></i>
+          </div>
+          <h3>Step 1: Setup</h3>
+          <p>Download the SecurePulse app and pair your bracelet via Bluetooth. Complete the quick setup process.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-user-friends"></i>
+          </div>
+          <h3>Step 2: Add Contacts</h3>
+          <p>Add emergency contacts who will be notified when you trigger an SOS alert.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-sliders-h"></i>
+          </div>
+          <h3>Step 3: Customize</h3>
+          <p>Set your preferences for health monitoring, safety zones, and notification settings.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-heartbeat"></i>
+          </div>
+          <h3>Step 4: Monitor</h3>
+          <p>Wear your SecurePulse and monitor your health and safety through the dashboard.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing Page -->
+    <section id="pricing" class="page">
+      <h2>Plans & Pricing</h2>
+      <p>Choose the plan that best fits your needs and budget.</p>
+      
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <h3>Individual Plan</h3>
+          <div class="price">R49<span>/month</span></div>
+          <ul class="features-list">
+            <li><i class="fas fa-check-circle"></i> Single bracelet</li>
+            <li><i class="fas fa-check-circle"></i> Health monitoring</li>
+            <li><i class="fas fa-check-circle"></i> Emergency SOS</li>
+            <li><i class="fas fa-check-circle"></i> Basic location tracking</li>
+            <li><i class="fas fa-check-circle"></i> Mobile app access</li>
+          </ul>
+          <button class="btn primary">Get Started</button>
+        </div>
+        
+        <div class="pricing-card popular">
+          <div class="popular-badge">POPULAR</div>
+          <h3>Family Plan</h3>
+          <div class="price">R199<span>/month</span></div>
+          <ul class="features-list">
+            <li><i class="fas fa-check-circle"></i> Up to 5 bracelets</li>
+            <li><i class="fas fa-check-circle"></i> Family dashboard</li>
+            <li><i class="fas fa-check-circle"></i> All Individual features</li>
+            <li><i class="fas fa-check-circle"></i> Advanced location tracking</li>
+            <li><i class="fas fa-check-circle"></i> Geofencing alerts</li>
+            <li><i class="fas fa-check-circle"></i> Priority support</li>
+          </ul>
+          <button class="btn primary">Choose Family</button>
+        </div>
+        
+        <div class="pricing-card">
+          <h3>Organization Plan</h3>
+          <div class="price">R499<span>/month</span></div>
+          <ul class="features-list">
+            <li><i class="fas fa-check-circle"></i> 11+ bracelets</li>
+            <li><i class="fas fa-check-circle"></i> Customizable dashboard</li>
+            <li><i class="fas fa-check-circle"></i> All Family features</li>
+            <li><i class="fas fa-check-circle"></i> Group management</li>
+            <li><i class="fas fa-check-circle"></i> API integration</li>
+            <li><i class="fas fa-check-circle"></i> Dedicated account manager</li>
+            <li><i class="fas fa-check-circle"></i> 24/7 premium support</li>
+          </ul>
+          <button class="btn secondary">Contact for Quote</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Page -->
+    <section id="about" class="page">
+      <h2>About SecurePulse</h2>
+      <p>Our mission is to empower individuals and families with innovative safety solutions.</p>
+      
+      <div class="features-grid" style="margin-top: 3rem;">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-history"></i>
+          </div>
+          <h3>Our Story</h3>
+          <p>Founded in 2022 by a team of engineers and healthcare professionals, SecurePulse was born from a desire to create accessible safety technology.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-bullseye"></i>
+          </div>
+          <h3>Our Mission</h3>
+          <p>To provide innovative, reliable safety solutions that give people freedom and peace of mind in their daily lives.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <h3>Our Team</h3>
+          <p>A diverse team of engineers, designers, and healthcare professionals committed to making safety accessible to all.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-trophy"></i>
+          </div>
+          <h3>Awards</h3>
+          <p>2023 HealthTech Innovation Award<br>2024 Best Safety Wearable<br>2024 Design Excellence Award</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Page -->
+    <section id="contact" class="page">
+      <h2>Contact Us</h2>
+      <p>Have questions? We're here to help!</p>
+      
+      <div class="contact-container">
+        <div class="contact-info">
+          <h3>Get in Touch</h3>
+          
+          <div class="contact-method">
+            <div class="contact-icon">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <div>
+              <h4>Email</h4>
+              <p>aphiwe.net@gmail.com</p>
+            </div>
+          </div>
+          
+          <div class="contact-method">
+            <div class="contact-icon">
+              <i class="fab fa-whatsapp"></i>
+            </div>
+            <div>
+              <h4>WhatsApp</h4>
+              <p>+27 619 145 456</p>
+            </div>
+          </div>
+          
+          <div class="contact-method">
+            <div class="contact-icon">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div>
+              <h4>Office</h4>
+              <p>123 Innovation Drive<br>Tech District, Cape Town<br>South Africa, 8001</p>
+            </div>
+          </div>
+          
+          <div class="contact-method">
+            <div class="contact-icon">
+              <i class="fas fa-clock"></i>
+            </div>
+            <div>
+              <h4>Hours</h4>
+              <p>Monday-Friday: 8am-6pm<br>Saturday: 9am-1pm<br>Sunday: Closed</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="contact-form">
+          <h3>Send Us a Message</h3>
+          <form>
+            <div class="form-group">
+              <label for="name">Full Name</label>
+              <input type="text" id="name" placeholder="Your name">
+            </div>
+            
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" placeholder="Your email">
+            </div>
+            
+            <div class="form-group">
+              <label for="subject">Subject</label>
+              <input type="text" id="subject" placeholder="Subject">
+            </div>
+            
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" placeholder="Your message"></textarea>
+            </div>
+            
+            <button type="submit" class="btn primary">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Help Center Page -->
+    <section id="help" class="page">
+      <div class="help-center">
+        <h2>Help Center</h2>
+        <p>Find answers to common questions or contact our support team.</p>
+        
+        <div class="faq-container">
+          <div class="faq-item">
+            <div class="faq-question">
+              How do I set up my SecurePulse bracelet?
+              <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+            </div>
+            <div class="faq-answer">
+              <p>Setting up your SecurePulse is simple. First, download the SecurePulse app from the App Store or Google Play. Turn on your bracelet and make sure Bluetooth is enabled on your phone. Open the app and follow the on-screen instructions to pair your device. The entire process takes less than 5 minutes.</p>
+            </div>
+          </div>
+          
+          <div class="faq-item">
+            <div class="faq-question">
+              How do I add emergency contacts?
+              <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+            </div>
+            <div class="faq-answer">
+              <p>In the SecurePulse app, go to Settings > Emergency Contacts. Tap the "+" icon and enter the contact information for the people you want to notify in an emergency. You can add multiple contacts and set their priority level.</p>
+            </div>
+          </div>
+          
+          <div class="faq-item">
+            <div class="faq-question">
+              How long does the battery last?
+              <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+            </div>
+            <div class="faq-answer">
+              <p>The SecurePulse battery lasts up to 7 days on a single charge with normal use. Battery life may vary based on usage of GPS and other features. You'll receive a notification in the app when your battery is running low.</p>
+            </div>
+          </div>
+          
+          <div class="faq-item">
+            <div class="faq-question">
+              Is SecurePulse waterproof?
+              <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+            </div>
+            <div class="faq-answer">
+              <p>Yes, SecurePulse has an IP68 waterproof rating, meaning it can withstand immersion in up to 1.5 meters of water for 30 minutes. You can wear it while swimming, showering, or in the rain.</p>
+            </div>
+          </div>
+          
+          <div class="faq-item">
+            <div class="faq-question">
+              How do I reset my bracelet?
+              <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+            </div>
+            <div class="faq-answer">
+              <p>To reset your bracelet, press and hold the side button for 15 seconds until the LED flashes red three times. This will reset the device without erasing your account data. For a complete factory reset, use the "Reset Device" option in the app settings.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 3rem;">
+          <p>Still need help? Contact our support team:</p>
+          <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem; align-items: center;">
+            <a href="mailto:aphiwe.net@gmail.com" class="btn secondary" style="width: 100%; max-width: 300px;">
+              <i class="fas fa-envelope"></i> Email Support
+            </a>
+            <a href="https://wa.me/27619145456" class="btn primary" style="background-color: #25D366; width: 100%; max-width: 300px;">
+              <i class="fab fa-whatsapp"></i> WhatsApp Support
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>SecurePulse</h3>
+          <div class="footer-links">
+            <a href="#about" data-page="about">About Us</a>
+            <a href="#">Careers</a>
+            <a href="#">Press</a>
+            <a href="#">Blog</a>
+          </div>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Products</h3>
+          <div class="footer-links">
+            <a href="#product" data-page="product">SecurePulse Bracelet</a>
+            <a href="#">Mobile App</a>
+            <a href="#">Accessories</a>
+            <a href="#pricing" data-page="pricing">Plans & Pricing</a>
+          </div>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Support</h3>
+          <div class="footer-links">
+            <a href="#help" data-page="help">Help Center</a>
+            <a href="#help" data-page="help">FAQs</a>
+            <a href="#contact" data-page="contact">Contact Us</a>
+            <a href="#">Warranty</a>
+          </div>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Legal</h3>
+          <div class="footer-links">
+            <a href="#">Terms of Service</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Cookie Policy</a>
+            <a href="#">Compliance</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="copyright">
+        <p>&copy; 2025 SecurePulse. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Login Modal -->
+  <div class="modal" id="loginModal">
+    <div class="modal-content">
+      <span class="close-modal" id="closeModal">&times;</span>
+      <h2>SecurePulse Login</h2>
+      
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" placeholder="Enter your username" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="Enter your password" required>
+        </div>
+        
+        <div class="error-message" id="errorMessage">
+          Invalid username or password. Please try again.
+        </div>
+        
+        <button type="submit" class="btn primary" style="width: 100%;">Login to Dashboard</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // DOM Elements
+    const pages = document.querySelectorAll('.page');
+    const navLinks = document.querySelectorAll('nav a');
+    const loginBtn = document.getElementById('loginBtn');
+    const loginModal = document.getElementById('loginModal');
+    const closeModal = document.getElementById('closeModal');
+    const loginForm = document.getElementById('loginForm');
+    const errorMessage = document.getElementById('errorMessage');
+    const dashboardContent = document.getElementById('dashboardContent');
+    const faqItems = document.querySelectorAll('.faq-item');
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mainNav = document.getElementById('mainNav');
+    
+    // Set active page
+    function setActivePage(pageId) {
+      // Hide all pages
+      pages.forEach(page => {
+        page.classList.remove('active');
+      });
+      
+      // Show selected page
+      const activePage = document.getElementById(pageId);
+      if (activePage) {
+        activePage.classList.add('active');
+      }
+      
+      // Update active nav link
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('data-page') === pageId) {
+          link.classList.add('active');
+        }
+      });
+      
+      // Close mobile menu
+      mainNav.classList.remove('active');
+      
+      // Scroll to top
+      window.scrollTo(0, 0);
+    }
+    
+    // Navigation
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const pageId = link.getAttribute('data-page');
+        setActivePage(pageId);
+        history.pushState({page: pageId}, '', `#${pageId}`);
+      });
+    });
+    
+    // FAQ Toggle
+    faqItems.forEach(item => {
+      const question = item.querySelector('.faq-question');
+      question.addEventListener('click', () => {
+        item.classList.toggle('active');
+      });
+    });
+    
+    // Open login modal
+    loginBtn.addEventListener('click', () => {
+      loginModal.style.display = 'flex';
+    });
+    
+    // Close login modal
+    closeModal.addEventListener('click', () => {
+      loginModal.style.display = 'none';
+    });
+    
+    // Close modal when clicking outside
+    window.addEventListener('click', (e) => {
+      if (e.target === loginModal) {
+        loginModal.style.display = 'none';
+      }
+    });
+    
+    // Login form submission
+    loginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      
+      // Hard-coded credentials
+      if (username === 'user' && password === 'password') {
+        // Hide modal
+        loginModal.style.display = 'none';
+        
+        // Change login button to logout
+        loginBtn.textContent = 'Logout';
+        loginBtn.id = 'logoutBtnTemp';
+        
+        // Show dashboard page
+        setActivePage('dashboard');
+        
+        // Reset form
+        loginForm.reset();
+      } else {
+        // Show error message
+        errorMessage.style.display = 'block';
+      }
+    });
+    
+    // Logout functionality
+    document.addEventListener('click', (e) => {
+      if (e.target.id === 'logoutBtn' || e.target.id === 'logoutBtnTemp') {
+        // Change login button back
+        loginBtn.textContent = 'Login';
+        loginBtn.id = 'loginBtn';
+        
+        // Go back to home page
+        setActivePage('home');
+      }
+    });
+    
+    // Toggle mobile menu
+    mobileMenuBtn.addEventListener('click', () => {
+      mainNav.classList.toggle('active');
+    });
+    
+    // Handle back/forward navigation
+    window.addEventListener('popstate', (e) => {
+      const pageId = e.state ? e.state.page : 'home';
+      setActivePage(pageId);
+    });
+    
+    // Initial page load
+    document.addEventListener('DOMContentLoaded', () => {
+      const hash = window.location.hash.substring(1);
+      const initialPage = hash || 'home';
+      setActivePage(initialPage);
+      history.replaceState({page: initialPage}, '', initialPage === 'home' ? '#' : `#${initialPage}`);
+      
+      // Simulate live data updates
+      setInterval(() => {
+        if (dashboardContent.classList.contains('active')) {
+          const heartRate = document.querySelector('.metric-card:first-child .metric-value');
+          if (heartRate) {
+            const currentRate = parseInt(heartRate.textContent);
+            const newRate = Math.max(60, Math.min(90, currentRate + Math.floor(Math.random() * 5) - 2));
+            heartRate.textContent = newRate + ' bpm';
+          }
+          
+          const steps = document.querySelector('.metric-card:nth-child(4) .metric-value');
+          if (steps) {
+            const currentSteps = parseInt(steps.textContent.replace(',', ''));
+            const newSteps = currentSteps + Math.floor(Math.random() * 10);
+            steps.textContent = newSteps.toLocaleString() + ' steps';
+          }
+        }
+      }, 3000);
+    });
+  </script>
+</body>
+</html>
