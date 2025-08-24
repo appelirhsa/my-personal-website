@@ -38,6 +38,60 @@
       overflow-x: hidden;
     }
 
+    /* Login Modal */
+    .login-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      backdrop-filter: blur(5px);
+    }
+
+    .login-content {
+      background: white;
+      padding: 2.5rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      width: 90%;
+      max-width: 450px;
+      text-align: center;
+    }
+
+    .login-content h2 {
+      margin-bottom: 1.5rem;
+      color: var(--primary);
+    }
+
+    .login-content input {
+      width: 100%;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      border: 1px solid #ddd;
+      border-radius: var(--radius);
+      font-size: 1rem;
+    }
+
+    .login-content button {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: var(--radius);
+      font-size: 1rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .login-content button:hover {
+      background: var(--primary-dark);
+    }
+
     /* Dashboard Layout */
     .dashboard-container {
       display: grid;
@@ -336,6 +390,100 @@
       color: var(--danger);
     }
 
+    /* NEW FEATURES */
+    
+    /* Voice Assistant */
+    .voice-assistant {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      z-index: 100;
+      transition: var(--transition);
+    }
+
+    .voice-assistant:hover {
+      transform: scale(1.1);
+    }
+
+    .voice-assistant.listening {
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    /* Health Score */
+    .health-score {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: conic-gradient(var(--success) 80%, var(--bg) 20%);
+      position: relative;
+      margin: 0 auto 1rem;
+    }
+
+    .health-score-inner {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+
+    /* Prediction Card */
+    .prediction-card {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .prediction-card h4 {
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* Wellness Tips */
+    .wellness-tips {
+      background: rgba(34, 197, 94, 0.1);
+      border-radius: var(--radius);
+      padding: 1rem;
+      margin-top: 1rem;
+    }
+
+    .wellness-tips h4 {
+      color: var(--success);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
     /* Responsive Design */
     @media (max-width: 900px) {
       .dashboard-container {
@@ -412,7 +560,17 @@
   </style>
 </head>
 <body>
-  <div class="dashboard-container">
+  <!-- Login Modal -->
+  <div class="login-modal" id="loginModal">
+    <div class="login-content">
+      <h2>Welcome to SecurePulse</h2>
+      <p>Enter your name to access your personalized health dashboard</p>
+      <input type="text" id="userName" placeholder="Your Name">
+      <button id="loginBtn">Access Dashboard</button>
+    </div>
+  </div>
+
+  <div class="dashboard-container" id="dashboard" style="display: none;">
     <!-- Sidebar -->
     <aside class="sidebar">
       <div class="sidebar-header">
@@ -449,13 +607,20 @@
       
       <div class="user-card">
         <div class="user-info">
-          <div class="user-avatar">JD</div>
+          <div class="user-avatar" id="userAvatar">AM</div>
           <div class="user-details">
-            <h3>Ayanda Mkhize</h3>
+            <h3 id="sidebarUserName">Ayanda Mkhize</h3>
             <p>Premium Member</p>
           </div>
         </div>
       </div>
+      
+      <div class="health-score">
+        <div class="health-score-inner">
+          <span id="healthScore">82</span>
+        </div>
+      </div>
+      <p style="text-align: center; margin-bottom: 1.5rem;">Your Health Score</p>
       
       <div class="emergency-section" style="margin-top: 2rem; background: rgba(239, 68, 68, 0.05); padding: 1rem; border-radius: var(--radius);">
         <h4 style="margin-bottom: 1rem; color: var(--danger);">Emergency</h4>
@@ -469,15 +634,15 @@
     <main class="main-content">
       <div class="top-bar">
         <div class="user-info">
-          <div class="user-avatar">JD</div>
+          <div class="user-avatar" id="topBarUserAvatar">AM</div>
           <div class="user-details">
-            <h3>Welcome back, Ayanda!</h3>
-            <p>Last sync: Today at 10:30 AM</p>
+            <h3 id="welcomeMessage">Welcome back, Ayanda!</h3>
+            <p>Last sync: Today at <span id="currentTime">10:30 AM</span></p>
           </div>
         </div>
         
         <div class="actions">
-          <button class="action-btn">
+          <button class="action-btn" id="refreshBtn">
             <i class="fas fa-sync-alt"></i>
           </button>
           <button class="action-btn">
@@ -534,6 +699,21 @@
             <i class="fas fa-arrow-up"></i>
             <span>Goal achieved!</span>
           </div>
+        </div>
+      </div>
+      
+      <!-- NEW: Personalized Health Insights -->
+      <div class="widget fade-in">
+        <div class="widget-header">
+          <h3 class="widget-title"><i class="fas fa-lightbulb"></i> Personalized Health Insights</h3>
+        </div>
+        <div class="wellness-tips">
+          <h4><i class="fas fa-seedling"></i> Wellness Tip</h4>
+          <p id="wellnessTip">Based on your activity patterns, try taking a 5-minute walk every hour to improve circulation.</p>
+        </div>
+        <div class="prediction-card">
+          <h4><i class="fas fa-crystal-ball"></i> Health Prediction</h4>
+          <p id="healthPrediction">Based on your current metrics, you're likely to maintain good health this week. Keep up your activity levels!</p>
         </div>
       </div>
       
@@ -656,9 +836,146 @@
     </main>
   </div>
 
+  <!-- Voice Assistant -->
+  <div class="voice-assistant" id="voiceAssistant">
+    <i class="fas fa-microphone"></i>
+  </div>
+
   <script>
+    // Initialize user data
+    let userName = '';
+    let userInitials = '';
+
+    // DOM Elements
+    const loginModal = document.getElementById('loginModal');
+    const dashboard = document.getElementById('dashboard');
+    const loginBtn = document.getElementById('loginBtn');
+    const userNameInput = document.getElementById('userName');
+    const welcomeMessage = document.getElementById('welcomeMessage');
+    const sidebarUserName = document.getElementById('sidebarUserName');
+    const userAvatar = document.getElementById('userAvatar');
+    const topBarUserAvatar = document.getElementById('topBarUserAvatar');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const voiceAssistant = document.getElementById('voiceAssistant');
+    const refreshBtn = document.getElementById('refreshBtn');
+    const wellnessTip = document.getElementById('wellnessTip');
+    const healthPrediction = document.getElementById('healthPrediction');
+    const healthScore = document.getElementById('healthScore');
+    const currentTime = document.getElementById('currentTime');
+
+    // Check if user is already logged in
+    window.addEventListener('DOMContentLoaded', function() {
+      const savedName = localStorage.getItem('securePulseUserName');
+      if (savedName) {
+        userName = savedName;
+        userInitials = getUserInitials(userName);
+        showDashboard();
+      } else {
+        loginModal.style.display = 'flex';
+      }
+      
+      // Update current time
+      updateCurrentTime();
+      setInterval(updateCurrentTime, 60000);
+    });
+
+    // Login functionality
+    loginBtn.addEventListener('click', function() {
+      if (userNameInput.value.trim() !== '') {
+        userName = userNameInput.value.trim();
+        userInitials = getUserInitials(userName);
+        localStorage.setItem('securePulseUserName', userName);
+        showDashboard();
+      } else {
+        alert('Please enter your name');
+      }
+    });
+
+    // Logout functionality
+    logoutBtn.addEventListener('click', function() {
+      if (confirm('Are you sure you want to log out?')) {
+        localStorage.removeItem('securePulseUserName');
+        userName = '';
+        userInitials = '';
+        loginModal.style.display = 'flex';
+        dashboard.style.display = 'none';
+      }
+    });
+
+    // Voice Assistant functionality
+    voiceAssistant.addEventListener('click', function() {
+      voiceAssistant.classList.toggle('listening');
+      if (voiceAssistant.classList.contains('listening')) {
+        voiceAssistant.innerHTML = '<i class="fas fa-circle"></i>';
+        // In a real app, this would activate voice recognition
+        setTimeout(function() {
+          alert("Voice assistant activated. What can I help you with, " + userName + "?");
+          voiceAssistant.classList.remove('listening');
+          voiceAssistant.innerHTML = '<i class="fas fa-microphone"></i>';
+        }, 1000);
+      } else {
+        voiceAssistant.innerHTML = '<i class="fas fa-microphone"></i>';
+      }
+    });
+
+    // Refresh data
+    refreshBtn.addEventListener('click', function() {
+      refreshBtn.style.animation = 'spin 1s linear';
+      setTimeout(function() {
+        refreshBtn.style.animation = '';
+        alert('Data refreshed for ' + userName);
+        updateHealthData();
+      }, 1000);
+    });
+
+    // Helper functions
+    function getUserInitials(name) {
+      return name.split(' ').map(word => word[0]).join('').toUpperCase();
+    }
+
+    function showDashboard() {
+      loginModal.style.display = 'none';
+      dashboard.style.display = 'grid';
+      welcomeMessage.textContent = 'Welcome back, ' + userName + '!';
+      sidebarUserName.textContent = userName;
+      userAvatar.textContent = userInitials;
+      topBarUserAvatar.textContent = userInitials;
+      updateHealthData();
+      initializeCharts();
+    }
+
+    function updateCurrentTime() {
+      const now = new Date();
+      currentTime.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    }
+
+    function updateHealthData() {
+      // Generate personalized wellness tip
+      const tips = [
+        "Based on your activity patterns, try taking a 5-minute walk every hour to improve circulation.",
+        "Your sleep quality has improved. Consider maintaining your current bedtime routine.",
+        "Your hydration levels seem low today. Remember to drink at least 8 glasses of water.",
+        "Your stress levels appear elevated. Try a 5-minute breathing exercise to relax.",
+        "Great job on reaching your step goal! Keep up the consistent activity."
+      ];
+      wellnessTip.textContent = tips[Math.floor(Math.random() * tips.length)];
+      
+      // Generate health prediction
+      const predictions = [
+        "Based on your current metrics, you're likely to maintain good health this week. Keep up your activity levels!",
+        "Your health trends are positive. With continued good habits, you may see even better results next week.",
+        "We've noticed a slight dip in your activity. Increasing your daily steps could improve your overall health score.",
+        "Your consistent sleep pattern is contributing positively to your health. Keep maintaining this schedule.",
+        "Your vital signs are stable. Continue with your current routine for optimal health."
+      ];
+      healthPrediction.textContent = predictions[Math.floor(Math.random() * predictions.length)];
+      
+      // Update health score (random between 75-95 for demo)
+      healthScore.textContent = Math.floor(Math.random() * 20) + 75;
+    }
+
     // Initialize Charts
-    document.addEventListener('DOMContentLoaded', function() {
+    function initializeCharts() {
       // Heart Rate Chart
       const heartRateCtx = document.getElementById('heartRateChart').getContext('2d');
       const heartRateChart = new Chart(heartRateCtx, {
@@ -755,35 +1072,7 @@
           }
         }
       });
-      
-      // Simulate live data updates
-      setInterval(() => {
-        // Update heart rate
-        const heartRate = document.querySelector('.metric-card:first-child .metric-value');
-        if (heartRate) {
-          const currentRate = parseInt(heartRate.textContent);
-          const newRate = Math.max(60, Math.min(90, currentRate + Math.floor(Math.random() * 5) - 2));
-          heartRate.textContent = newRate + ' bpm';
-        }
-        
-        // Update steps
-        const steps = document.querySelector('.metric-card:nth-child(3) .metric-value');
-        if (steps) {
-          const currentSteps = parseInt(steps.textContent.replace(',', ''));
-          const newSteps = currentSteps + Math.floor(Math.random() * 10);
-          steps.textContent = newSteps.toLocaleString() + ' steps';
-        }
-      }, 3000);
-      
-      // Logout functionality
-      document.getElementById('logoutBtn').addEventListener('click', function() {
-        if (confirm('Are you sure you want to log out?')) {
-          // In a real app, this would redirect to login page
-          alert('You have been logged out. Redirecting to login page...');
-          // window.location.href = 'login.html';
-        }
-      });
-    });
+    }
   </script>
 </body>
 </html>
