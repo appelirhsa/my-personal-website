@@ -1,104 +1,849 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Aphiwe's Blog – Welcome</title>
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Blog | Aphiwe Elihle Mthembu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="images/profile.jpg">
   <style>
-    html, body {
-      width: 100vw; height: 100vh; margin: 0; padding: 0; overflow: hidden;
-      background: linear-gradient(120deg, #0f2027 0%, #2c5364 100%);
-      color: #fff;
-      font-family: 'Poppins', Arial, sans-serif;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
+    :root {
+      --primary: #2c5aa0;
+      --primary-light: #3a6dc2;
+      --primary-dark: #1e3f73;
+      --secondary: #6c757d;
+      --light: #f8f9fa;
+      --dark: #212529;
+      --gray-100: #f8f9fa;
+      --gray-200: #e9ecef;
+      --gray-300: #dee2e6;
+      --gray-400: #ced4da;
+      --gray-500: #adb5bd;
+      --gray-600: #6c757d;
+      --gray-700: #495057;
+      --gray-800: #343a40;
+      --gray-900: #212529;
+      --success: #198754;
+      --border-radius: 8px;
+      --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6极 rgba(0, 0, 0, 0.07);
+      --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
     }
-    #stars-bg {
-      position: absolute; inset: 0; width: 100vw; height: 100vh; z-index: 0;
-      background: transparent;
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
-    .center-content {
-      position: relative;
-      z-index: 1;
-      text-align: center;
-      max-width: 600px;
-      margin: 2rem;
+
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      color: var(--gray-800);
+      background-color: var(--gray-100);
+      transition: var(--transition);
     }
-    .profile-blog {
-      width: 120px;
-      height: 120px;
+
+    body.dark {
+      background-color: var(--gray-900);
+      color: var(--gray-200);
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header Styles */
+    header {
+      background-color: white;
+      box-shadow: var(--shadow-sm);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      transition: var(--transition);
+    }
+
+    body.dark header {
+      background-color: var(--gray-800);
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 700;
+      font-size: 1.25rem;
+    }
+
+    body.dark .logo {
+      color: white;
+    }
+
+    .logo-img {
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       object-fit: cover;
-      border: 4px solid #fc5c7d;
-      margin-bottom: 1.2rem;
-      box-shadow: 0 0 24px #fc5c7d99;
     }
-    h1 {
-      font-size: 2.3rem;
-      margin: 0 0 0.7em 0;
-      color: #fc5c7d;
+
+    .nav-menu {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+      align-items: center;
     }
-    .soon {
-      font-size: 1.3em;
-      color: #8ec5fc;
-      margin-bottom: 1.5em;
-      letter-spacing: 1px;
+
+    .nav-link {
+      text-decoration: none;
+      color: var(--gray-700);
+      font-weight: 500;
+      transition: var(--transition);
+      position: relative;
     }
-    .bio {
-      font-size: 1em;
-      color: #d1e9ff;
-      line-height: 1.6em;
+
+    body.dark .nav-link {
+      color: var(--gray-300);
     }
-    @media (max-width: 700px) {
-      h1 { font-size: 1.4rem; }
-      .profile-blog { width: 80px; height: 80px; }
-      .bio { font-size: 0.9em; }
+
+    .nav-link:hover {
+      color: var(--primary);
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--primary);
+      transition: var(--transition);
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .theme-toggle {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1.25rem;
+      color: var(--gray-700);
+      transition: var(--transition);
+    }
+
+    body.dark .theme-toggle {
+      color: var(--gray-300);
+    }
+
+    .theme-toggle:hover {
+      color: var(--primary);
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--gray-700);
+      cursor: pointer;
+    }
+
+    body.dark .mobile-menu-btn {
+      color: var(--gray-300);
+    }
+
+    /* Blog Hero Section */
+    .blog-hero {
+      padding: 3rem 0;
+      background: linear-gradient(135deg, rgba(44, 90, 160, 0.05) 0%, rgba(255, 255, 255, 0.1) 100%);
+      margin-bottom: 2rem;
+      transition: var(--transition);
+    }
+
+    body.dark .blog-hero {
+      background: linear-gradient(135deg, rgba(44, 90, 160, 0.1) 0%, rgba(33, 37, 41, 0.2) 100%);
+    }
+
+    .blog-hero-content {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .blog-hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .blog-hero p {
+      font-size: 1.1rem;
+      color: var(--gray-700);
+      margin-bottom: 1.5rem;
+    }
+
+    body.dark .blog-hero p {
+      color: var(--gray-400);
+    }
+
+    /* Blog Content */
+    .blog-container {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    @media (max-width: 992px) {
+      .blog-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Blog Posts */
+    .blog-posts {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .blog-post {
+      background-color: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    body.dark .blog-post {
+      background-color: var(--gray-800);
+    }
+
+    .blog-post:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .post-image {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+    }
+
+    .post-content {
+      padding: 1.5rem;
+    }
+
+    .post-meta {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+      color: var(--gray-600);
+    }
+
+    body.dark .post-meta {
+      color: var(--gray-400);
+    }
+
+    .post-meta i {
+      margin-right: 0.5rem;
+      color: var(--primary);
+    }
+
+    .post-title {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .post-excerpt {
+      margin-bottom: 1.5rem;
+      color: var(--gray-700);
+    }
+
+    body.dark .post-excerpt {
+      color: var(--gray-300);
+    }
+
+    .read-more {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background-color: var(--primary);
+      color: white;
+      text-decoration: none;
+      border-radius: var(--border-radius);
+      font-weight: 500;
+      transition: var(--transition);
+    }
+
+    .read-more:hover {
+      background-color: var(--primary-light);
+    }
+
+    /* Sidebar */
+    .sidebar {
+      background-color: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-md);
+      padding: 1.5rem;
+      transition: var(--transition);
+    }
+
+    body.dark .sidebar {
+      background-color: var(--gray-800);
+    }
+
+    .sidebar-widget {
+      margin-bottom: 2rem;
+    }
+
+    .sidebar-title {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+      position: relative;
+      padding-bottom: 0.5rem;
+    }
+
+    .sidebar-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background-color: var(--primary);
+    }
+
+    .categories-list {
+      list-style: none;
+    }
+
+    .categories-list li {
+      margin-bottom: 0.5rem;
+    }
+
+    .categories-list a {
+      display: flex;
+      justify-content: space-between;
+      color: var(--gray-700);
+      text-decoration: none;
+      transition: var(--transition);
+      padding: 0.5rem 0;
+    }
+
+    body.dark .categories-list a {
+  color: var(--gray-300);
+}
+
+    .categories-list a:hover {
+      color: var(--primary);
+      padding-left: 5px;
+    }
+
+    .recent-posts {
+      list-style: none;
+    }
+
+    .recent-post {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--gray-300);
+    }
+
+    body.dark .recent-post {
+      border-bottom: 1px solid var(--gray-700);
+    }
+
+    .recent-post:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .recent-post-img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: var(--border-radius);
+    }
+
+    .recent-post-content h4 {
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .recent-post-content a {
+      color: var(--gray-800);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    body.dark .recent-post-content a {
+      color: var(--gray-200);
+    }
+
+    .recent-post-content a:hover {
+      color: var(--primary);
+    }
+
+    .recent-post-date {
+      font-size: 0.8rem;
+      color: var(--gray-600);
+    }
+
+    body.dark .recent-post-date {
+      color: var(--gray-400);
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .tag {
+      padding: 0.25rem 0.75rem;
+      background-color: var(--gray-200);
+      color: var(--gray-700);
+      border-radius: 20px;
+      font-size: 0.8rem;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    body.dark .tag {
+      background-color: var(--gray-700);
+      color: var(--gray-300);
+    }
+
+    .tag:hover {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    /* Pagination */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 2rem;
+    }
+
+    .page-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: white;
+      color: var(--gray-700);
+      text-decoration: extreme;
+      transition: var(--transition);
+      box-shadow: var(--shadow-sm);
+    }
+
+    body.dark .page-link {
+      background-color: var(--gray-800);
+      color: var(--gray-300);
+    }
+
+    .page-link:hover,
+    .page-link.active {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    /* Footer */
+    footer {
+      background-color: var(--gray-800);
+      color: white;
+      padding: 3rem 0 1.5rem;
+      margin-top: 4rem;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 1rem;
+      color: white;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.25rem;
+    }
+
+    .footer-logo-img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .footer-heading {
+      color: white;
+      margin-bottom: 1rem;
+      position: relative;
+      padding-bottom: 0.5rem;
+    }
+
+    .footer-heading::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background-color: var(--primary);
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-links a {
+      color: var(--gray-400);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .footer-links a:hover {
+      color: white;
+      padding-left: 5px;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--gray-700);
+      color: var(--gray-400);
+      font-size: 0.9rem;
+    }
+
+    .footer-bottom a {
+      color: var(--gray-400);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .footer-bottom a:hover {
+      color: white;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .nav-menu {
+        position: fixed;
+        top: 70px;
+        left: -100%;
+        flex-direction: column;
+        background-color: white;
+        width: 100%;
+        height: calc(100vh - 70px);
+        padding: 2rem;
+        box-shadow: var(--shadow-md);
+        transition: var(--transition);
+        gap: 2rem;
+      }
+
+      body.dark .nav-menu {
+        background-color: var(--gray-800);
+      }
+
+      .nav-menu.active {
+        left: 0;
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      .blog-hero h1 {
+        font-size: 2rem;
+      }
     }
   </style>
 </head>
 <body>
-  <canvas id="stars-bg"></canvas>
-  <div class="center-content">
-    <img src="images/profile.jpg" alt="Aphiwe Elihle Mthembu" class="profile-blog"/>
-    <h1>Welcome to My Blog</h1>
-    <div class="soon">Exploring technology, ideas & student life.<br>🚀⭐🌈</div>
-    <p class="bio">
-      Hi, I'm <strong>Aphiwe Elihle Mthembu</strong>, an aspiring electrical and electronic engineer based in South Africa. 
-      I’m passionate about innovation, clean code, and how technology transforms lives, especially in education and energy. 
-      This space will be where I share what I’m building, learning, and thinking as I grow in the world of engineering, coding, 
-      and academic life. Whether it’s solving campus challenges or exploring blockchain tech, I’m here to share and learn.
-    </p>
+  <header>
+    <div class="container header-container">
+      <a href="index.html" class="logo">
+        <img src="images/profile.jpg" alt="Aphiwe Mthembu" class="logo-img">
+        <span>Aphiwe Mthembu</span>
+      </a>
+      
+      <button class="mobile-menu-btn" id="mobile-menu-btn">
+        <i class="fas fa-bars"></i>
+      </button>
+      
+      <ul class="nav-menu" id="nav-menu">
+        <li><a href="index.html#about" class="nav-link">About</a></li>
+        <li><a href="index.html#experience" class="nav-link">Experience</a></li>
+        <li><a href="index.html#projects" class="nav-link">Projects</a></li>
+        <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+        <li><a href="blog1.html" class="nav-link active">Blog</a></li>
+        <li>
+          <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark/light mode">
+            <i class="fas fa-moon"></i>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <section class="blog-hero">
+    <div class="container blog-hero-content">
+      <h1>Engineering Insights</h1>
+      <p>Sharing knowledge, projects, and thoughts on electrical engineering, technology, and innovation.</p>
+    </div>
+  </section>
+
+  <div class="container blog-container">
+    <main class="blog-posts">
+      <article class="blog-post">
+        <img src="https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="IoT in Engineering" class="post-image">
+        <div class="post-content">
+          <div class="post-meta">
+            <span><i class="far fa-calendar"></i> June 15, 2023</span>
+            <span><i class="far fa-folder"></i> IoT</span>
+            <span><i class="far fa-clock"></i> 5 min read</span>
+          </div>
+          <h2 class="post-title">The Future of IoT in Electrical Engineering</h2>
+          <p class="post-excerpt">
+            The Internet of Things is revolutionizing how we approach electrical systems design. From smart grids to connected devices, IoT is enabling unprecedented levels of monitoring, control, and efficiency in electrical engineering applications. In this article, I explore the current state and future potential of IoT in our field.
+          </p>
+          <a href="blog-post.html" class="read-more">Read More</a>
+        </div>
+      </article>
+
+      <article class="blog-post">
+        <img src="https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Renewable Energy" class="post-image">
+        <div class="post-content">
+          <div class="post-meta">
+            <span><i class="far fa-calendar"></i> May 28, 2023</span>
+            <span><i class="far extreme-folder"></i> Energy</span>
+            <span><i class="far fa-clock"></i> 7 min read</span>
+          </div>
+          <h2 class="post-title">Innovations in Renewable Energy Systems</h2>
+          <p class="post-excerpt">
+            As the world shifts toward sustainable energy solutions, electrical engineers are at the forefront of designing and implementing innovative renewable energy systems. This post examines recent advancements in solar, wind, and hydroelectric technologies and their implications for the future of power generation.
+          </p>
+          <a href="blog-post.html" class="read-more">Read More</a>
+        </div>
+      </article>
+
+      <article class="blog-post">
+        <img src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?ixlib=rb-4.0.3&极id=M3wxMjA3极DB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="PCB Design" class="post-image">
+        <div class="post-content">
+          <div class="post-meta">
+            <span><i class="far fa-calendar"></i> April 12, 2023</span>
+            <span><i class="far fa-folder"></i> Electronics</span>
+            <span><i class="far fa-clock"></i> 6 min read</span>
+          </div>
+          <h2 class="post-title">Best Practices for Modern PCB Design</h2>
+          <p class="post-excerpt">
+            Printed Circuit Board design has evolved significantly with the increasing complexity of electronic devices. In this comprehensive guide, I share practical tips and best practices for creating efficient, reliable PCBs that meet the demands of today's technology while avoiding common design pitfalls.
+          </p>
+          <a href="blog-post.html" class="read-more">Read More</a>
+        </div>
+      </article>
+
+      <div class="pagination">
+        <a href="#" class="page-link active">1</a>
+        <a href="blog2.html" class="page-link">2</a>
+        <a href="#" class="page-link">3</a>
+        <a href="#" class="page-link"><i class="fas fa-chevron-right"></i></a>
+      </div>
+    </main>
+
+    <aside class="sidebar">
+      <div class="sidebar-widget">
+        <h3 class="sidebar-title">Categories</h3>
+        <ul class="categories-list">
+          <li><a href="#">IoT <span>(5)</span></a></li>
+          <li><a href="#">Energy <span>(8)</span></a></li>
+          <li><a href="#">Electronics <span>(12)</span></a></li>
+          <li><a href="#">Programming <span>(9)</span></a></li>
+          <li><a href="#">Innovation <span>(7)</span></a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-widget">
+        <h3 class="sidebar-title">Recent Posts</h3>
+        <ul class="recent-posts">
+          <li class="recent-post">
+            <img src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Recent Post" class="recent-post-img">
+            <div class="recent-post-content">
+              <h4><a href="#">Best Practices for Modern PCB Design</a></h4>
+              <span class="recent-post-date">April 12, 2023</span>
+            </div>
+          </li>
+          <li class="recent-post">
+            <img src="https://images.unsplash.com/photo-1581092580497-e0极23cbdf1dc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Recent Post" class="recent-post-img">
+            <div class="recent-post-content">
+              <h4><a href="#">Innovations in Renewable Energy Systems</a></h4>
+              <span class="recent-post-date">May 28, 2023</span>
+            </div>
+          </li>
+          <li class="recent-post">
+            <img src="https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Recent Post" class="recent-post-img">
+            <div class="recent-post-content">
+              <h4><a href="#">The Future of IoT in Electrical Engineering</a></h4>
+              <span class="recent-post-date">June 15, 2023</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sidebar-widget">
+        <h3 class="sidebar-title">Tags</h3>
+        <div class="tags">
+          <a href="#" class="tag">Engineering</a>
+          <a href="#" class="tag">Technology</a>
+          <a href="#" class="tag">IoT</a>
+          <a href="#" class="tag">Renewable Energy</a>
+          <a href="#" class="tag">PCB Design</a>
+          <a href="#" class="tag">Innovation</a>
+          <a href="#" class="tag">Programming</a>
+          <a href="#" class="tag">Electronics</a>
+        </div>
+      </div>
+    </aside>
   </div>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div>
+          <a href="index.html" class="footer-logo">
+            <img src="images/profile.jpg" alt="Aphiwe Mthembu" class="footer-logo-img">
+            <span>Aphiwe Mthembu</span>
+          </a>
+          <p>Electrical & Electronic Engineer passionate about innovative solutions that bridge hardware and software.</p>
+          <div class="footer-social">
+            <a href="https://www.linkedin.com/in/appelirhsa/" target="_blank" aria-label="LinkedIn">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a href="https://github.com/appelirhsa" target="_blank" aria-label="GitHub">
+              <i class="fab fa-github"></i>
+            </a>
+            <a href="https://instagram.com/appelirhsa" target="_blank" aria-label="Instagram">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="极ttps://facebook.com/appelirhsa" target="_blank" aria-label="Facebook">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="footer-heading">Sitemap</h4>
+          <ul class="footer-links">
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="index.html#experience">Experience</a></li>
+            <li><a href="index.html#projects">Projects</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+            <li><a href="blog1.html">Blog</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="footer-heading">Contact Info</h4>
+          <ul class="footer-links">
+            <li><i class="fas fa-envelope"></i> aphiwe.net@gmail.com</li>
+            <li><i class="fas fa-phone"></i> +27 61 914 5456</li>
+            <li><i class="fas fa-map-marker-alt"></i> Johannesburg, South Africa</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2025 Aphiwe Elihle Mthembu. Designed by <a href="https://appelirhsa.co.za">Aphiwe Mthembu</a></p>
+      </div>
+    </div>
+  </footer>
+
   <script>
-    // Animated colorful stars
-    const canvas = document.getElementById('stars-bg');
-    let w = window.innerWidth, h = window.innerHeight;
-    canvas.width = w; canvas.height = h;
-    const ctx = canvas.getContext('2d');
-    let stars = Array.from({length: 80}, (_,i) => ({
-      x: Math.random()*w, y: Math.random()*h,
-      r: 1+Math.random()*2.5, c: Math.floor(360*Math.random()), p: Math.random()*Math.PI*2
-    }));
-    function draw() {
-      ctx.clearRect(0,0,w,h);
-      for (const s of stars) {
-        ctx.save();
-        ctx.beginPath();
-        ctx.arc(s.x, s.y + Math.sin(Date.now()/1100 + s.p)*6, s.r + Math.sin(Date.now()/600 + s.p)*1.2, 0, Math.PI*2);
-        ctx.fillStyle = `hsl(${s.c},100%,${60+25*Math.sin(Date.now()/900 + s.p)}%)`;
-        ctx.shadowColor = ctx.fillStyle;
-        ctx.shadowBlur = 14;
-        ctx.globalAlpha = 0.8;
-        ctx.fill();
-        ctx.restore();
-      }
-      requestAnimationFrame(draw);
-    }
-    draw();
-    window.addEventListener('resize', () => {
-      w = window.innerWidth; h = window.innerHeight;
-      canvas.width = w; canvas.height = h;
-      stars.forEach(s => {s.x = Math.random()*w; s.y = Math.random()*h;});
+    // Mobile menu toggle
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const navMenu = document.getElementById('nav-menu');
+    
+    mobileMenuBtn.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
+      mobileMenuBtn.innerHTML = navMenu.classList.contains('active') ? 
+        '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
     });
+    
+    // Close mobile menu when clicking on a link
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('active');
+        mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+      });
+    });
+    
+    // Theme toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = themeToggle.querySelector('i');
+    
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      if (document.body.classList.contains('dark')) {
+        themeIcon.classList.remove('fa-moon');
+        themeIcon.classList.add('fa-sun');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        themeIcon.classList.remove('fa-sun');
+        themeIcon.classList.add('fa-moon');
+        localStorage.setItem('theme', 'light');
+      }
+    });
+    
+    // Check for saved theme preference
+    if (localStorage.getItem('theme') === 'dark') {
+      document.body.classList.add('dark');
+      themeIcon.classList.remove('fa-moon');
+      themeIcon.classList.add('fa-sun');
+    }
   </script>
 </body>
 </html>
