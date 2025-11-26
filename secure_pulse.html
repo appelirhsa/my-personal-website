@@ -79,17 +79,20 @@
       width: 100%;
     }
     
-   .logo-icon {
-  width: 32px;
-  height: 32px;
-  margin-right: 8px;
-}
-
-.logo-icon img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
+    .logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: var(--apple-white);
+      font-weight: 600;
+      font-size: 21px;
+    }
+    
+    .logo img {
+      height: 28px;
+      width: auto;
+      margin-right: 8px;
+    }
     
     #mainNav {
       display: flex;
@@ -201,6 +204,7 @@
     .hero-image img {
       max-width: 100%;
       height: auto;
+      max-height: 500px;
     }
     
     /* Features Section */
@@ -465,6 +469,20 @@
       
       #mainNav {
         display: none;
+        position: absolute;
+        top: 44px;
+        left: 0;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.9);
+        flex-direction: column;
+        padding: 20px;
+      }
+      
+      #mainNav a {
+        padding: 10px 0;
+        font-size: 17px;
+        width: 100%;
+        text-align: center;
       }
       
       .mobile-menu-btn {
@@ -510,7 +528,7 @@
   <header class="navbar">
     <div class="navbar-content container">
       <a href="#home" class="logo" data-page="home">
-        <div class="logo-icon"><img src="images/logo.png" alt="Logo"></div>
+        <img src="image/logo.png" alt="SecurePulse Logo">
         <span>SecurePulse</span>
       </a>
       <nav id="mainNav">
@@ -546,7 +564,7 @@
           </div>
         </div>
         <div class="hero-image">
-          <img src="https://images.unsplash.com/photo-1551818255-e6e10975bc17?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="SecurePulse Bracelet">
+          <img src="images/safepulse.png" alt="SecurePulse Bracelet">
         </div>
       </div>
     </section>
@@ -631,7 +649,6 @@
         </div>
       </div>
     </section>
-    <!-- ...Other Sections can go here, About, Contact, etc... -->
   </main>
 
   <!-- Footer -->
@@ -695,12 +712,26 @@
       link.addEventListener('click', function() {
         document.querySelectorAll('#mainNav a').forEach(a => a.classList.remove('active'));
         this.classList.add('active');
+        
+        // Close mobile menu after clicking a link
+        if (window.innerWidth <= 734) {
+          document.getElementById('mainNav').style.display = 'none';
+        }
       });
     });
 
     // Login button
     document.getElementById('loginBtn').addEventListener('click', function() {
       alert('Login functionality would go here');
+    });
+
+    // Handle window resize
+    window.addEventListener('resize', function() {
+      if (window.innerWidth > 734) {
+        document.getElementById('mainNav').style.display = 'flex';
+      } else {
+        document.getElementById('mainNav').style.display = 'none';
+      }
     });
   </script>
 </body>
