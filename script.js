@@ -162,3 +162,9 @@
     
     window.addEventListener("scroll", reveal);
     window.addEventListener("load", reveal);
+
+    // Dynamic footer year
+    const footerYear = document.getElementById('footer-year');
+    if (footerYear) {
+      footerYear.textContent = new Date().getFullYear();
+    }

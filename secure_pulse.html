@@ -693,7 +693,7 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; 2025 SecurePulse. All rights reserved.</p>
+        <p>&copy; <span id="footer-year">2025</span> SecurePulse. All rights reserved.</p>
         <p>
           <a href="https://appelirhsa.co.za" target="_blank" rel="noopener noreferrer" class="footer-author">Aphiwe Mthembu</a> | designed by Aphiwe Mthembu
         </p>
@@ -733,6 +733,9 @@
         document.getElementById('mainNav').style.display = 'none';
       }
     });
+
+    // Dynamic footer year
+    document.getElementById('footer-year').textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
