@@ -817,7 +817,7 @@
       </div>
       
       <div class="footer-bottom">
-        <p>&copy; 2025 Aphiwe Elihle Mthembu. Designed by <a href="https://appelirhsa.co.za">Aphiwe Mthembu</a></p>
+        <p>&copy; <span id="footer-year">2025</span> Aphiwe Elihle Mthembu. Designed by <a href="https://appelirhsa.co.za">Aphiwe Mthembu</a></p>
       </div>
     </div>
   </footer>
@@ -864,6 +864,9 @@
       themeIcon.classList.remove('fa-moon');
       themeIcon.classList.add('fa-sun');
     }
+
+    // Dynamic footer year
+    document.getElementById('footer-year').textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
