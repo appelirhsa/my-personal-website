@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% from "_macros.html" import work_card, statement %}
+{% block head %}
+<script type="application/ld+json">{{ person_ld | safe }}</script>
+{% endblock %}
+{% block main %}
+<section class="hero">
+  {% if s.hero.photo | safe_url %}<img class="hero-photo" src="{{ s.hero.photo | safe_url }}" alt="{{ s.hero.name }}" fetchpriority="high">{% endif %}
+  <div class="hero-left">
+    {% if s.hero.availability %}<span class="pill"><i></i>{{ s.hero.availability }}</span>{% endif %}
+    <h1>{{ s.hero.headline }}</h1>
+  </div>
+  <div class="hero-right">
+    <p>{{ s.hero.intro }}</p>
+    <a class="btn dark" href="/contact">Get in touch</a>
+  </div>
+</section>
+
+{% if featured %}
+<section class="wrap block">
+  <div class="block-head">
+    <h2>Featured works</h2>
+    <a class="btn soft" href="/works">All works <span aria-hidden="true">→</span></a>
+  </div>
+  <div class="work-grid">{% for p in featured %}{{ work_card(p) }}{% endfor %}</div>
+</section>
+{% endif %}
+
+{% if s.stats %}
+<section class="wrap block">
+  <div class="stats">
+    {% for st in s.stats %}<div><b>{{ st.value }}</b><span>{{ st.label }}</span></div>{% endfor %}
+  </div>
+</section>
+{% endif %}
+
+<section class="wrap block split">
+  <span class="label">Skills</span>
+  <div>
+    {{ statement(s.skills_intro or s.about) }}
+    <div class="skill-grid">
+      {% for key, title in [('technical','Technical'),('academic','Academic & research'),('soft','Soft skills')] %}
+        {% if s.skills[key] %}
+        <article class="skill{% if loop.first %} hl{% endif %}">
+          <h3>{{ title }}</h3>
+          <div class="tags">{% for x in s.skills[key] %}<span>{{ x }}</span>{% endfor %}</div>
+        </article>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% if s.experience %}
+<section class="dark-block">
+  <div class="wrap split">
+    <span class="label">Experience</span>
+    <div>
+      {{ statement(s.experience_intro or "") }}
+      <div class="steps">
+        {% for e in s.experience %}
+        <article class="step">
+          <span class="num">{{ loop.index }}</span>
+          <h3>{{ e.role }}{% if e.org %} · {{ e.org }}{% endif %}</h3>
+          <small>{{ e.dates }}</small>
+          <ul>{% for b in e.bullets or [] %}<li>{{ b }}</li>{% endfor %}</ul>
+        </article>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+{% endblock %}

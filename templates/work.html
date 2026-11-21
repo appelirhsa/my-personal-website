@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block main %}
+<article class="wrap case">
+  <a class="back" href="/works">← All works</a>
+  <h1>{{ p.title }}</h1>
+  <p class="lead">{{ p.summary }}</p>
+  <div class="tags">{% for t in p.tags or [] %}<span>{{ t }}</span>{% endfor %}</div>
+  <div class="actions">
+    {% if p.url | safe_url %}<a class="btn dark" href="{{ p.url | safe_url }}" {% if p.url.startswith('http') %}target="_blank" rel="noopener"{% endif %} data-track="{{ p.id }}">View project</a>{% endif %}
+    {% if p.repo_url | safe_url %}<a class="btn soft" href="{{ p.repo_url | safe_url }}" target="_blank" rel="noopener" data-track="{{ p.id }}">Source code</a>{% endif %}
+  </div>
+  {% if p.thumbnail | safe_url %}
+  <div class="case-media{% if p.contain %} contain{% endif %}"><img src="{{ p.thumbnail | safe_url }}" alt="{{ p.title }}"></div>
+  {% endif %}
+  <div class="prose">{{ p.content | md }}</div>
+  {% if p.files %}
+  <div class="files">
+    <h3>Files</h3>
+    {% for f in p.files %}{% if f.url | safe_url %}<a href="{{ f.url | safe_url }}" download data-track="{{ p.id }}">{{ f.name or f.url }} <span aria-hidden="true">↓</span></a>{% endif %}{% endfor %}
+  </div>
+  {% endif %}
+  <nav class="pager">
+    {% if prev %}<a href="/works/{{ prev.id | urlencode }}">← {{ prev.title }}</a>{% else %}<span></span>{% endif %}
+    {% if next %}<a href="/works/{{ next.id | urlencode }}">{{ next.title }} →</a>{% endif %}
+  </nav>
+</article>
+{% endblock %}

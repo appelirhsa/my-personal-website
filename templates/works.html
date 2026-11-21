@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% from "_macros.html" import work_card %}
+{% block main %}
+<section class="wrap page-head">
+  <h1>Works</h1>
+  <p class="lead">Engineering, research and software projects.</p>
+</section>
+<section class="wrap block tight">
+  {% if projects %}<div class="work-grid">{% for p in projects %}{{ work_card(p) }}{% endfor %}</div>
+  {% else %}<p class="muted">Projects are on the way.</p>{% endif %}
+</section>
+{% endblock %}

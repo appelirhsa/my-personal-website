@@ -1,0 +1,15 @@
+{% macro work_card(p) %}
+<a class="work" href="/works/{{ p.id | urlencode }}">
+  <div class="work-media{% if p.contain %} contain{% endif %}">
+    {% if p.thumbnail | safe_url %}<img src="{{ p.thumbnail | safe_url }}" alt="{{ p.title }}" loading="lazy">{% endif %}
+  </div>
+  <h3>{{ p.title }}</h3>
+  <p>{{ p.summary }}</p>
+  <div class="tags">{% for t in p.tags or [] %}<span>{{ t }}</span>{% endfor %}</div>
+</a>
+{% endmacro %}
+
+{% macro statement(text) %}
+{% set parts = text | two_tone %}
+<p class="statement"><span class="grey">{{ parts[0] }}</span>{% if parts[1] %} <span>{{ parts[1] }}</span>{% endif %}</p>
+{% endmacro %}

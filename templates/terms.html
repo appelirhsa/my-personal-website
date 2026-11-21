@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block main %}
+<article class="wrap case legal-page">
+  <h1>Terms of Use &amp; Legal Notice</h1>
+  <p class="lead">Last updated {{ legal_updated }}.</p>
+  <div class="prose">
+    <h2>1. About this website</h2>
+    <p>This is the personal portfolio website of {{ s.hero.name }}, {{ s.contact.location or 'South Africa' }}. Contact: <a href="mailto:{{ s.contact.email }}">{{ s.contact.email }}</a>{% if s.contact.phone %}, {{ s.contact.phone }}{% endif %}. The site presents my education, experience and projects. It does not sell goods or services and does not take payments. Please also read the <a href="/privacy">Privacy Policy</a>.</p>
+
+    <h2>2. Copyright and permitted use</h2>
+    <p>Unless stated otherwise, the text, designs, photographs, project write-ups and CV on this site are © {{ year }} {{ s.hero.name }}, all rights reserved. You are welcome to link to any page, and to quote short extracts with clear credit and a link back. Please ask before copying, republishing or using anything commercially. Names, logos and trademarks of other organisations that appear here belong to their owners and are used only to describe my education and experience.</p>
+
+    <h2>3. Projects, accuracy and no professional advice</h2>
+    <p>The projects shown are academic, research and personal work. Some, such as SecurePulse, are concepts and are not real products or services. Information is provided in good faith for general interest only and may be incomplete or out of date. Nothing here is professional engineering advice, and circuits, designs or code described on this site should not be built, installed or relied on for any safety-related purpose without qualified review.</p>
+
+    <h2>4. Links to other websites</h2>
+    <p>Links to third-party websites are provided for convenience. I do not control them and am not responsible for their content or privacy practices.</p>
+
+    <h2>5. Acceptable use</h2>
+    <p>Please do not use the contact form to send unlawful, abusive or unsolicited promotional content, and do not attempt to gain unauthorised access to this website or its administration area, or to disrupt it. Unauthorised access to computer systems is a criminal offence under the Cybercrimes Act 19 of 2020.</p>
+
+    <h2>6. Limitation of liability</h2>
+    <p>To the fullest extent permitted by law, I am not liable for any loss or damage arising from your use of, or reliance on, this website or its content. This does not limit any liability that cannot lawfully be excluded.</p>
+
+    <h2>7. Open-source software and fonts</h2>
+    <p>This site uses the following freely licensed components, served from this server:</p>
+    <ul>
+      <li>Geist typeface, © The Geist Project Authors, SIL Open Font License 1.1 (<a href="/assets/fonts/LICENSE-Geist-OFL.txt">licence</a>). Inter typeface, © The Inter Project Authors, SIL Open Font License 1.1 (<a href="/assets/fonts/LICENSE-Inter-OFL.txt">licence</a>), used on the SecurePulse demo pages.</li>
+      <li>Font Awesome Free 6.7.2, © Fonticons, Inc.: icons under CC BY 4.0, fonts under SIL OFL 1.1, code under MIT (<a href="/assets/vendor/fontawesome/LICENSE.txt">licence</a>). Used on the SecurePulse demo pages.</li>
+      <li>Chart.js 4.6.1, © Chart.js Contributors, MIT licence (<a href="/assets/vendor/chartjs/LICENSE.md">licence</a>). Used on the SecurePulse demo dashboard.</li>
+    </ul>
+
+    <h2>8. Governing law</h2>
+    <p>These terms are governed by the laws of the Republic of South Africa, and the South African courts have jurisdiction over any dispute arising from them.</p>
+
+    <h2>9. Changes</h2>
+    <p>I may update these terms from time to time. The current version is always the one on this page.</p>
+  </div>
+</article>
+{% endblock %}

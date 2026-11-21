@@ -1,0 +1,240 @@
+{
+  "site": {
+    "title": "Aphiwe Elihle Mthembu | Electrical & Electronic Engineer",
+    "description": "Official website of Aphiwe Elihle Mthembu, an Electrical & Electronic Engineering graduate passionate about intelligent hardware and software systems.",
+    "blog_url": "https://appelirhsa.blogspot.com/",
+    "google_verification": "RCVyWreEvDA3d0P1QGgcmOHqD18-QS79QNmPTSiAj9k"
+  },
+  "hero": {
+    "name": "Aphiwe Elihle Mthembu",
+    "short_name": "Aphiwe Mthembu",
+    "role": "Electrical & Electronic Engineer",
+    "availability": "Graduate Electrical & Electronic Engineer",
+    "headline": "Aphiwe builds intelligent, efficient systems that bridge hardware and software",
+    "intro": "I'm an Electrical and Electronic Engineering graduate from the University of Johannesburg. I solve complex technical problems through code, simulation and hands-on building, and I aim to design solutions that are both practical and future-focused.",
+    "photo": "/uploads/images/Untitled-design-3.webp",
+    "cv_url": "/uploads/files/CV_Aphiwe_Mthembu.pdf"
+  },
+  "stats": [
+    {
+      "value": "5+",
+      "label": "Years tutoring matric students"
+    },
+    {
+      "value": "100%",
+      "label": "Mentee pass rate"
+    },
+    {
+      "value": "4+",
+      "label": "Featured engineering projects"
+    }
+  ],
+  "about": "I'm Aphiwe Mthembu, an Electrical and Electronic Engineering graduate passionate about building intelligent, efficient systems that bridge hardware and software.\n\nI enjoy solving complex technical problems through code, simulation and innovation. My mission is to design solutions that are both practical and future-focused.\n\nBeyond the lab I tutor, write technical content and work in teams, which keeps me close to the people the engineering is for.",
+  "skills_intro": "A strong foundation in maths, science and systems thinking sits behind every build. I turn that into working code, simulations and prototypes.",
+  "skills": {
+    "technical": [
+      "C",
+      "C++",
+      "Python",
+      "MATLAB/Octave",
+      "Arduino",
+      "OpenMP",
+      "HTML / CSS / JavaScript",
+      "React",
+      "AutoCAD",
+      "Multisim",
+      "LTspice",
+      "Proteus",
+      "LabVIEW",
+      "Git & GitHub",
+      "Advanced Excel"
+    ],
+    "academic": [
+      "Technical writing",
+      "Academic research",
+      "Project-based learning",
+      "Simulation",
+      "Fieldwork",
+      "Statistical modelling"
+    ],
+    "soft": [
+      "Communication",
+      "Team collaboration",
+      "Critical thinking",
+      "Adaptability",
+      "Client focus"
+    ]
+  },
+  "experience_intro": "Research, tutoring and technical writing alongside my degree. Each role has sharpened how I explain complex engineering ideas clearly.",
+  "experience": [
+    {
+      "role": "Academic & Technical Content Creator",
+      "org": "Livingston Research",
+      "dates": "2023 – Present",
+      "bullets": [
+        "Deliver academic and technical content in electrical engineering, mathematics and computer science.",
+        "Maintain high standards of quality and originality under deadline pressure.",
+        "Built skills in technical writing, client communication and remote project delivery."
+      ]
+    },
+    {
+      "role": "Tutor",
+      "org": "Tutors SA",
+      "dates": "2021 – Present",
+      "bullets": [
+        "Tutor matric-level students in core science subjects, tailoring explanations to each learning style.",
+        "Emphasise concept mastery and exam technique.",
+        "Every student mentored passed their final exams, with measurable gains in confidence and test performance."
+      ]
+    },
+    {
+      "role": "Engineering Student & Project Researcher",
+      "org": "University of Johannesburg",
+      "dates": "2023 – Present",
+      "bullets": [
+        "Worked in team-based projects diagnosing water shortages, analysing power disruptions and studying the impact of university bus delays.",
+        "Designed a stimulus tent for learners with special needs.",
+        "Strengthened technical reporting, stakeholder engagement and systems thinking."
+      ]
+    }
+  ],
+  "education": [
+    {
+      "degree": "BEng in Electrical and Electronic Engineering",
+      "school": "University of Johannesburg, South Africa",
+      "dates": "2023 – 2026",
+      "bullets": [
+        "Eskom Bursary recipient (2023–2026)",
+        "Accepted at UJ, Wits and UCT with bursary offers",
+        "Key courses: Electromagnetics 3A, Systems and Signals 3A, Digital Systems, Modelling and Simulation, Statistics for Engineers"
+      ]
+    },
+    {
+      "degree": "National Senior Certificate (Matric)",
+      "school": "Thornhill Christian College, South Africa",
+      "dates": "Completed 2022",
+      "bullets": [
+        "Aggregate: Level 7",
+        "Strong performance across STEM subjects",
+        "Taught Agricultural Sciences to fellow matric students, with a 100% pass rate"
+      ]
+    }
+  ],
+  "certifications": [
+    "Artificial Intelligence in the 4IR (SLP) – UJ",
+    "African Insights-15 Cred NQF5 – UJ",
+    "Advanced Information Literacy – UJ",
+    "Building Blocks of Information Literacy – UJ"
+  ],
+  "projects": [
+    {
+      "id": "thermal-fire-detection",
+      "title": "Early Fire Detection and Monitoring System",
+      "summary": "A thermal-imaging early fire detection and suppression system for server rooms. A Pico 2 W sensing unit streams thermal frames to a cloud-hosted machine-learning classifier that separates fires from merely hot objects.",
+      "content": "## Overview\nServer rooms contain equipment that is hot by design, so a simple temperature threshold either misses small, distant flames or raises false alarms on harmless hot objects. This final-year capstone project at the University of Johannesburg is a thermal early fire detection and suppression system that detects a fire by its behaviour, not by its temperature alone.\n\n## How it works\n- **Sensing unit:** A custom PCB built around a Raspberry Pi Pico 2 W captures 32 × 24 thermal frames and measures ambient temperature with a DS18B20.\n- **Cloud classification:** Each frame is uploaded to a server on AWS (FastAPI), where a random forest classifier sorts the scene into **Normal**, **Warning** (hot, non-fire objects) or **Fire**. The verdict is returned in about 20 ms.\n- **Safe fallback:** If the server does not answer within 3 s, the device falls back to its own 45 °C and 65 °C thresholds. Safety rails that detect a steadily rising temperature or a growing hot area stay active in both modes.\n- **Suppression interlock:** Firmware logic drives suppression only under defined conditions.\n- **Dashboard:** A web dashboard provides live monitoring and a Data Capture page for recording labelled thermal sessions.\n\n## Machine-learning results\nThe classifier uses 14 features calculated over windows of five frames, including hotspot size, sharpness, flicker, rate of rise and movement. It was trained on 60 recorded sessions (about 5 900 frames) of Normal, Warning and Fire scenes, and evaluated by session-based cross-validation so that every result comes from sessions the model had never seen.\n\n| Measure | Result | Target |\n|---|---|---|\n| Accuracy on unseen sessions | 87.0 % | ≥ 89 % |\n| False-positive rate | 3.7 % | ≤ 10 % |\n| Fire sessions that raised an alarm | 13 of 14 | — |\n\nThe classifier never confused a fire with a normal scene. All its errors are between Warning and Fire, mostly from soldering-iron tips, which look like a small flame at this sensor resolution. The accuracy target was narrowly missed, and the dataset is expected to close that gap with corrected labels and more Warning recordings.\n\n## Acknowledgements\nEasyEDA assisted with sourcing the equipment, and AWS provided free credits for hosting.",
+      "url": "https://fyp.appelirhsa.co.za",
+      "repo_url": "https://github.com/appelirhsa/early-fire-detection.git",
+      "thumbnail": "/uploads/images/Gemini_Generated_Image_ed8eyoed8eyoed8e.webp",
+      "contain": false,
+      "tags": [
+        "Embedded Systems",
+        "Machine Learning",
+        "Thermal Imaging",
+        "Fire Detection",
+        "Raspberry Pi Pico",
+        "MicroPython",
+        "FastAPI",
+        "AWS",
+        "PCB Design",
+        "IoT"
+      ],
+      "files": [],
+      "featured": false,
+      "visible": true
+    },
+    {
+      "id": "securepulse",
+      "title": "SecurePulse Health & Safety Bracelet",
+      "summary": "A wearable health-and-safety concept with a product website and a live-style monitoring dashboard.",
+      "content": "## Overview\n\nSecurePulse is a wearable bracelet concept that monitors health and raises real-time safety alerts, supported by a product website and a monitoring dashboard.\n\n## Features designed\n\n- **Health monitoring:** heart rate, temperature and activity levels\n- **Emergency SOS:** alerts emergency contacts with the wearer's location\n- **Real-time tracking:** GPS location with geofenced safety zones\n- **Tamper alert:** notification if the bracelet is forcibly removed or damaged\n\n## Built with\n\nHTML, CSS and JavaScript for the product site and dashboard.",
+      "url": "/secure_pulse.html",
+      "repo_url": "https://github.com/appelirhsa/securepulse.git",
+      "thumbnail": "/uploads/images/Gemini_Generated_Image_vrz1cmvrz1cmvrz1.webp",
+      "contain": false,
+      "tags": [
+        "Wearable",
+        "Web",
+        "IoT concept"
+      ],
+      "files": [],
+      "featured": true,
+      "visible": true
+    },
+    {
+      "id": "water-crisis",
+      "title": "Water Level Sensor & Crisis Analysis",
+      "summary": "Research into the technical and environmental causes of Johannesburg's water shortages.",
+      "content": "## Overview\n\nLed research on the technical and environmental causes of water shortages in Johannesburg.\n\n## Approach\n\n- Mapped how electricity outages and infrastructure strain feed into water supply failures\n- Analysed power failures and climate patterns\n- Produced actionable recommendations and presented the findings to university stakeholders\n\n## Skills used\n\nResearch, systems thinking, data analysis and technical writing.",
+      "url": "",
+      "repo_url": "",
+      "thumbnail": "/uploads/images/Gemini_Generated_Image_vrz1cmvrz1cmvrz1-1.webp",
+      "contain": false,
+      "tags": [
+        "Research",
+        "Systems thinking",
+        "Data analysis"
+      ],
+      "files": [],
+      "featured": true,
+      "visible": true
+    },
+    {
+      "id": "jupiter-gravity",
+      "title": "Gravity Data Analyzer – Jupiter",
+      "summary": "A parallel C++ program that analyses experimental gravity data from Jupiter.",
+      "content": "## Overview\n\nAnalysed experimental gravity data from Jupiter with a custom-built C++ program.\n\n## What it does\n\n- Computes mean, median, mode, minimum, maximum and histograms\n- Uses OpenMP to process the data in parallel\n\n## Skills used\n\nC++, OpenMP, data visualisation and numerical methods.",
+      "url": "",
+      "repo_url": "",
+      "thumbnail": "/uploads/images/Gemini_Generated_Image_vrz1cmvrz1cmvrz1-2-2.webp",
+      "contain": false,
+      "tags": [
+        "C++",
+        "OpenMP",
+        "Numerical methods"
+      ],
+      "files": [],
+      "featured": true,
+      "visible": true
+    },
+    {
+      "id": "blockchain-site",
+      "title": "Interactive Blockchain Website",
+      "summary": "In progress: a site explaining blockchain fundamentals with live data and interactive components.",
+      "content": "## Overview\n\nA site that explains blockchain fundamentals with real-time data, crypto statistics, educational articles and interactive components.\n\n**Status:** in progress.\n\n## Skills used\n\nHTML, CSS, JavaScript, React and API integration.",
+      "url": "",
+      "repo_url": "",
+      "thumbnail": "/uploads/images/Gemini_Generated_Image_vrz1cmvrz1cmvrz1-3-2.webp",
+      "contain": false,
+      "tags": [
+        "React",
+        "APIs",
+        "In progress"
+      ],
+      "files": [],
+      "featured": true,
+      "visible": true
+    }
+  ],
+  "contact": {
+    "cta_heading": "Let's build something together",
+    "email": "aphiwe.net@gmail.com",
+    "phone": "+27 61 914 5456",
+    "whatsapp": "https://wa.me/27619145456",
+    "location": "Johannesburg, South Africa",
+    "github": "https://github.com/appelirhsa",
+    "linkedin": "https://www.linkedin.com/in/appelirhsa/",
+    "instagram": "https://instagram.com/appelirhsa",
+    "facebook": "https://facebook.com/appelirhsa",
+    "form_action": "https://formspree.io/f/xjkoykrl"
+  }
+}

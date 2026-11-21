@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block main %}
+<section class="wrap page-head">
+  <h1>Contact</h1>
+  <p class="lead">Questions, collaborations or opportunities: send a message and I'll reply as soon as I can.</p>
+</section>
+<section class="wrap block tight contact-grid">
+  <form id="contact-form" action="{{ s.contact.form_action | safe_url }}" method="POST">
+    <label>Name<input name="name" required autocomplete="name"></label>
+    <label>Email<input name="email" type="email" required autocomplete="email"></label>
+    <label>Message<textarea name="message" rows="6" required></textarea></label>
+    <p class="muted consent">By sending this message you agree that your name, email and message are processed by Formspree (USA) so I can reply. See the <a href="/privacy">Privacy Policy</a>.</p>
+    <button class="btn dark" type="submit">Send message</button>
+    <p id="form-status" class="muted" role="status"></p>
+  </form>
+  <div class="details">
+    {% if s.contact.email %}<a href="mailto:{{ s.contact.email }}"><small>Email</small>{{ s.contact.email }}</a>{% endif %}
+    {% if s.contact.whatsapp %}<a href="{{ s.contact.whatsapp | safe_url }}" target="_blank" rel="noopener"><small>WhatsApp</small>{{ s.contact.phone or 'Message me' }}</a>{% endif %}
+    {% if s.contact.location %}<div><small>Location</small>{{ s.contact.location }}</div>{% endif %}
+    {% if s.contact.linkedin %}<a href="{{ s.contact.linkedin | safe_url }}" target="_blank" rel="noopener"><small>LinkedIn</small>View profile</a>{% endif %}
+    {% if s.contact.github %}<a href="{{ s.contact.github | safe_url }}" target="_blank" rel="noopener"><small>GitHub</small>View repositories</a>{% endif %}
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block main %}
+<section class="wrap page-head about-head">
+  <div>
+    <h1>About</h1>
+    {% for para in s.about.split('\n\n') %}{% if para.strip() %}<p class="lead">{{ para }}</p>{% endif %}{% endfor %}
+    <div class="actions">
+      {% if s.hero.cv_url %}<a class="btn dark" href="/cv">Download CV</a>{% endif %}
+      <a class="btn soft" href="/contact">Get in touch</a>
+    </div>
+  </div>
+  {% if s.hero.photo | safe_url %}<img class="about-photo" src="{{ s.hero.photo | safe_url }}" alt="{{ s.hero.name }}">{% endif %}
+</section>
+
+{% if s.education %}
+<section class="wrap block split">
+  <span class="label">Education</span>
+  <div class="list">
+    {% for e in s.education %}
+    <article class="row">
+      <div class="row-head"><h3>{{ e.degree }}</h3><small>{{ e.dates }}</small></div>
+      <p class="muted">{{ e.school }}</p>
+      <ul>{% for b in e.bullets or [] %}<li>{{ b }}</li>{% endfor %}</ul>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+{% if s.experience %}
+<section class="wrap block split">
+  <span class="label">Experience</span>
+  <div class="list">
+    {% for e in s.experience %}
+    <article class="row">
+      <div class="row-head"><h3>{{ e.role }}{% if e.org %} · {{ e.org }}{% endif %}</h3><small>{{ e.dates }}</small></div>
+      <ul>{% for b in e.bullets or [] %}<li>{{ b }}</li>{% endfor %}</ul>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+{% if s.certifications %}
+<section class="wrap block split">
+  <span class="label">Certifications</span>
+  <div class="list"><ul class="plain">{% for c in s.certifications %}<li>{{ c }}</li>{% endfor %}</ul></div>
+</section>
+{% endif %}
+{% endblock %}

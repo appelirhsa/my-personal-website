@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+{%- set title = page_title or s.site.title %}
+{%- set desc = page_desc or s.site.description %}
+{%- set og_image = (og_image or s.hero.photo) | safe_url %}
+<title>{{ title }}</title>
+<meta name="description" content="{{ desc }}">
+<link rel="canonical" href="{{ site_url }}{{ canonical or request.url.path }}">
+{% if s.site.google_verification %}<meta name="google-site-verification" content="{{ s.site.google_verification }}">{% endif %}
+<meta property="og:type" content="{{ og_type or 'website' }}">
+<meta property="og:title" content="{{ title }}">
+<meta property="og:description" content="{{ desc }}">
+<meta property="og:url" content="{{ site_url }}{{ canonical or request.url.path }}">
+<meta property="og:site_name" content="{{ s.hero.short_name }}">
+{% if og_image %}<meta property="og:image" content="{{ site_url if og_image.startswith('/') else '' }}{{ og_image }}">{% endif %}
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/images/profile.jpg">
+<link rel="preload" href="/assets/fonts/geist-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/fonts/fonts.css">
+<link rel="stylesheet" href="/assets/site.css">
+{% block head %}{% endblock %}
+</head>
+<body>
+<header class="nav">
+  <a class="brand" href="/">{{ s.hero.short_name }}</a>
+  <nav class="links" id="links" aria-label="Main">
+    <a href="/works" {% if nav == 'works' %}class="on"{% endif %}>Works</a>
+    <a href="/about" {% if nav == 'about' %}class="on"{% endif %}>About</a>
+    <a href="/contact" {% if nav == 'contact' %}class="on"{% endif %}>Contact</a>
+    {% if s.site.blog_url %}<a href="{{ s.site.blog_url | safe_url }}" target="_blank" rel="noopener">Blog</a>{% endif %}
+    {% if s.hero.cv_url %}<a class="btn dark small only-mobile" href="/cv">Download CV</a>{% endif %}
+  </nav>
+  {% if s.hero.cv_url %}<a class="btn dark hide-mobile" href="/cv">Download CV</a>{% endif %}
+  <button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
+</header>
+
+<main>{% block main %}{% endblock %}</main>
+
+<section class="cta-banner">
+  <div class="wrap">
+    <h2>{{ s.contact.cta_heading or "Let's work together" }}</h2>
+    <div class="cta-actions">
+      {% if s.contact.email %}<a class="btn light" href="mailto:{{ s.contact.email }}">Email me</a>{% endif %}
+      {% if s.hero.cv_url %}<a class="btn ghost" href="/cv">Download CV</a>{% endif %}
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div>
+      <a class="brand" href="/">{{ s.hero.name }}</a>
+      <p class="muted">{{ s.hero.role }}<br>{{ s.contact.location }}</p>
+    </div>
+    <div>
+      <h4>Navigation</h4>
+      <a href="/">Home</a><a href="/works">Works</a><a href="/about">About</a><a href="/contact">Contact</a>
+    </div>
+    <div>
+      <h4>Connect</h4>
+      {% for label, key in [('LinkedIn','linkedin'),('GitHub','github'),('Instagram','instagram'),('Facebook','facebook'),('WhatsApp','whatsapp')] %}
+        {% if s.contact[key] %}<a href="{{ s.contact[key] | safe_url }}" target="_blank" rel="noopener">{{ label }}</a>{% endif %}
+      {% endfor %}
+    </div>
+  </div>
+  <div class="wrap legal">© {{ year }} {{ s.hero.name }}. All rights reserved. · <a href="/privacy">Privacy Policy</a> · <a href="/terms">Terms of Use</a></div>
+</footer>
+<script src="/assets/site.js" defer></script>
+</body>
+</html>
